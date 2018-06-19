@@ -1,0 +1,2 @@
+#Keyfile_auto_generate_bat
+HON generate Keyfile tool need manual click generate button, it not fool-prevernt for USI factory test process, so develop this batchfile to auto generate and upload keyfile to server
