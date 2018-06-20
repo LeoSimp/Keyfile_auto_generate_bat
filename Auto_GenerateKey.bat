@@ -50,7 +50,6 @@ if not errorlevel 1 taskkill /im %RUNEXE% /f >nul
 cd /d %RUNEXEPATH%
 start %RUNEXE%
 cd /d %~dp0
-echo wait 8S.. && ping 127.0.0.1 -n 9 >nul
 if exist %Logfile%  del %Logfile%
 if exist %Keyfile% del %Keyfile%
 call ButtonClick.exe
