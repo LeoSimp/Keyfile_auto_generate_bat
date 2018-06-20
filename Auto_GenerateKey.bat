@@ -11,7 +11,7 @@ set SucceededMSG="Succeeded for the Device"
 set AlreadyMSG="extracted for Device"
 set YYYY=%date:~0,4%
 set MM=%date:~5,2%
-set KeyfileServer=Q:\CT60Register\%YYYY%%MM%\
+set KeyfileServer=R:\%Model%\%YYYY%%MM%\
 if "%MM:~0,1%" =="0" ( set "HideLeftZMM=%MM:~-1%" ) else ( set "HideLeftZMM=%MM%" )
 set DD=%date:~8,2%
 if "%DD:~0,1%" =="0" ( set "HideLeftZDD=%DD:~-1%" ) else ( set "HideLeftZDD=%DD%" )
@@ -79,7 +79,7 @@ goto CHK_S_Keyfile
 echo on 
 if not exist "%KeyfilePath%" ( set errorMsg="not exist %KeyfilePath%" && goto fail )
 if not exist %Keyfile% (set errorMsg="not exist %Keyfile%" && goto fail)
-call :Mapstart Q: \\10.5.22.30\QCN administrator usi_2010
+call :Mapstart R: \\10.5.22.30\Reg_Key administrator usi_2010
 if not exist %KeyfileServer% md %KeyfileServer%
 copy /y %Keyfile% %KeyfileServer%
 if errorlevel 1 (set errorMsg="Copy %Keyfile% to server error" && goto fail)
@@ -89,7 +89,7 @@ echo SUCCESSFULL TEST
 goto end
 
 :CHK_S_Keyfile
-call :Mapstart Q: \\10.5.22.30\QCN administrator usi_2010
+call :Mapstart R: \\10.5.22.30\Reg_Key administrator usi_2010
 if not exist %KeyfileServer%\%Model%%SSN%_%YYYY%%MM%%DD%_*.txt  (
 	echo not exist %KeyfileServer%\%Model%%SSN%_%YYYY%%MM%%DD%_*.txt
 	set errorMsg="The DUT need re-flash Debug G2H OS" 
