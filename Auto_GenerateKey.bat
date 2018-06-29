@@ -109,7 +109,7 @@ goto end
 if exist LocalAllow_MACList.txt del LocalAllow_MACList.txt
 if exist LocalMacList.txt del LocalMacList.txt
 ipconfig /all | find "-" | find /v "00-00" > LocalMacList.txt
-if errorlevel 1 ( set errorMsg="ButtonClick.exe error" && goto fail )
+if errorlevel 1 ( set errorMsg="ipconfig error" && goto fail )
 set /a flag=0
 for /f "" %%i in ( TotalAllow_MACList.txt ) do (
 	set MAC=%%i
