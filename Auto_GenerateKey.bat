@@ -61,20 +61,27 @@ echo wait %n%S && ping 127.0.0.1 -n 2 >nul
 set /a n=n+1
 if not exist %Logfile% if !n! leq 30 ( goto WaitLog )
 if not exist %Logfile% if !n! gtr 30 ( set errorMsg="not exist %Logfile%" && goto fail )
+set /a n=0
+echo finding the %Logfile% keyword...
+:FindLogKeyword
+echo wait %n%S && ping 127.0.0.1 -n 2 >nul 
+set /a n=n+1
 find %AlreadyMSG% %Logfile% >nul
 if errorlevel 1 (
 	find %SucceededMSG% %Logfile% >nul
 	if errorlevel 1 ( 
-		set errorMsg="Both not exist %SucceededMSG% and %AlreadyMSG% in %Logfile%" 
-		type %Logfile%
-		echo.
-		goto fail 
+		if !n! leq 25 ( goto FindLogKeyword ) else (  
+			type %Logfile%
+			set errorMsg="Both not exist %SucceededMSG% and %AlreadyMSG% in %Logfile%"" 
+			goto fail 
+			)
 	)
 	goto UploadKeyfile
 ) else ( 
 echo Already generate the %Model%%SSN%_YYYYMMDD_HHssmm.txt, next will need to check the server path if exist %Model%%SSN%_%YYYY%%MM%%DD%_HHssmm.txt 
 goto CHK_S_Keyfile
 )
+
 :UploadKeyfile
 if not exist "%KeyfilePath%" ( set errorMsg="not exist %KeyfilePath%" && goto fail )
 if not exist %Keyfile% (set errorMsg="not exist %Keyfile%" && goto fail)
@@ -105,6 +112,7 @@ echo UUT-FAIL
 goto end
 
 :FindAllow_MAC
+cd /d %~dp0
 if exist LocalAllow_MACList.txt del LocalAllow_MACList.txt
 if exist LocalMacList.txt del LocalMacList.txt
 ipconfig /all | find "-" | find /v "00-00" > LocalMacList.txt
