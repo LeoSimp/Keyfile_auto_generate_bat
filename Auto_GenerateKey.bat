@@ -85,7 +85,7 @@ copy /y %Keyfile% %KeyfileServer%
 if errorlevel 1 (set errorMsg="Copy %Keyfile% to server error" && goto fail)
 type %Keyfile%
 echo.
-echo SUCCESSFULL TEST
+echo SUCCESSFUL TEST
 goto end
 
 :CHK_S_Keyfile
@@ -97,7 +97,7 @@ if not exist %KeyfileServer%\%Model%%SSN%_%YYYY%%MM%%DD%_*.txt  (
 )
 type %KeyfileServer%\%Model%%SSN%_%YYYY%%MM%%DD%_*.txt
 echo.
-echo SUCCESSFULL TEST
+echo SUCCESSFUL TEST
 goto end
 
 :fail
