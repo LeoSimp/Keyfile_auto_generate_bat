@@ -76,7 +76,6 @@ echo Already generate the %Model%%SSN%_YYYYMMDD_HHssmm.txt, next will need to ch
 goto CHK_S_Keyfile
 )
 :UploadKeyfile
-echo on 
 if not exist "%KeyfilePath%" ( set errorMsg="not exist %KeyfilePath%" && goto fail )
 if not exist %Keyfile% (set errorMsg="not exist %Keyfile%" && goto fail)
 call :Mapstart R: \\10.5.22.30\Reg_Key administrator usi_2010
