@@ -95,6 +95,9 @@ echo SUCCESSFUL TEST
 goto end
 
 :CHK_S_Keyfile
+rem echo SUCCESSFUL TEST
+rem goto end
+rem Debug
 call :Mapstart R: \\10.5.22.30\Reg_Key administrator usi_2010
 if not exist %KeyfileServer%\%Model%%SSN%_%YYYY%%MM%%DD%_*.txt  (
 	echo not exist %KeyfileServer%\%Model%%SSN%_%YYYY%%MM%%DD%_*.txt
