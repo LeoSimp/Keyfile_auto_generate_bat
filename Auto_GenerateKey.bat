@@ -85,15 +85,15 @@ goto CHK_S_Keyfile
 :UploadKeyfile
 if not exist "%KeyfilePath%" ( set errorMsg="not exist %KeyfilePath%" && goto fail )
 if not exist %Keyfile% (set errorMsg="not exist %Keyfile%" && goto fail)
-rem Transfer Keyfile* to be the only one Keyfile
+rem Transfer Keyfile* to be the only one Keyfile, and it only contains filename(no file path)
 for /f "" %%i in ('dir /b %Keyfile%') do set Keyfile=%%i
 call :Mapstart R: \\10.5.22.30\Reg_Key administrator usi_2010
 if not exist %KeyfileServer% md %KeyfileServer%
-copy /y %Keyfile% %KeyfileServer%
+copy /y %KeyfilePath%%Keyfile% %KeyfileServer%%Keyfile%
 if errorlevel 1 (set errorMsg="Copy %Keyfile% to server error" && goto fail)
-fc %Keyfile% %KeyfileServer% >nul
+fc %KeyfilePath%%Keyfile% %KeyfileServer%%Keyfile% >nul
 if errorlevel 1 (set errorMsg="file compare %Keyfile% with server error" && goto fail)
-type %Keyfile%
+type %KeyfilePath%%Keyfile%
 echo.
 echo SUCCESSFUL TEST
 goto end
